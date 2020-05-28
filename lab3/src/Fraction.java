@@ -2,21 +2,23 @@ import java.util.function.BiFunction;
 
 public abstract class Fraction<N, D> {
 
-    private N                   numerator;
-    private D                   denumerator;
-    private BiFunction<N, D, ?> devider;
-    private BiFunction<N, D, ?> summator;
-    private BiFunction<N, D, ?> amplifier;
-    private BiFunction<N, D, ?> substractor;
+    private N                                                                      numerator;
+    private D                                                                      denumerator;
+    private BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> devider;
+    private BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> summator;
+    private BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> amplifier;
+    private BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> substractor;
 
     public Fraction(N numerator, D denumerator) {
         this.numerator = numerator;
         this.denumerator = denumerator;
     }
 
-    public Fraction(N numerator, D denumerator, BiFunction<N, D, ?> devider,
-                    BiFunction<N, D, ?> summator, BiFunction<N, D, ?> amplifier,
-                    BiFunction<N, D, ?> substractor) {
+    public Fraction(N numerator, D denumerator,
+                    BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> devider,
+                    BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> summator,
+                    BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> amplifier,
+                    BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> substractor) {
         this.numerator = numerator;
         this.denumerator = denumerator;
         this.devider = devider;
@@ -25,40 +27,37 @@ public abstract class Fraction<N, D> {
         this.substractor = substractor;
     }
 
-    public Fraction(Fraction fraction) {
-
-    }
-
-    public BiFunction<N, D, ?> getSummator() {
-        return summator;
-    }
-
-    public void setSummator(BiFunction<N, D, ?> summator) {
-        this.summator = summator;
-    }
-
-    public BiFunction<N, D, ?> getAmplifier() {
-        return amplifier;
-    }
-
-    public void setAmplifier(BiFunction<N, D, ?> amplifier) {
-        this.amplifier = amplifier;
-    }
-
-    public BiFunction<N, D, ?> getSubstractor() {
-        return substractor;
-    }
-
-    public void setSubstractor(BiFunction<N, D, ?> substractor) {
-        this.substractor = substractor;
-    }
-
-    public BiFunction<N, D, ?> getDevider() {
+    public BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> getDevider() {
         return devider;
     }
 
-    public void setDevider(BiFunction<N, D, ?> devider) {
+    public void setDevider(BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> devider) {
         this.devider = devider;
+    }
+
+    public BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> getSummator() {
+        return summator;
+    }
+
+    public void setSummator(BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> summator) {
+        this.summator = summator;
+    }
+
+    public BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> getAmplifier() {
+        return amplifier;
+    }
+
+    public void setAmplifier(BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> amplifier) {
+        this.amplifier = amplifier;
+    }
+
+    public BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> getSubstractor() {
+        return substractor;
+    }
+
+    public void setSubstractor(
+            BiFunction<? extends Fraction, ? extends Fraction, ? extends Fraction> substractor) {
+        this.substractor = substractor;
     }
 
     public N getNumerator() {

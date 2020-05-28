@@ -76,4 +76,23 @@ public abstract class Fraction<N, D> {
         this.denumerator = denumerator;
     }
 
+    //
+    public <T extends Fraction> T add(T f) {
+        return ((BiFunction<T, T, T>) getSummator()).apply((T) this, f);
+    }
+
+    public <T extends Fraction> T multiply(T f) {
+        return ((BiFunction<T, T, T>) getAmplifier()).apply((T) this, f);
+    }
+
+    public <T extends Fraction> T sub(T f) {
+        return ((BiFunction<T, T, T>) getSubstractor()).apply((T) this, f);
+
+    }
+
+    public <T extends Fraction> T devide(T f) {
+        return ((BiFunction<T, T, T>) getDevider()).apply((T) this, f);
+
+    }
+
 }

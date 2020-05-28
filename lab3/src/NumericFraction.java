@@ -9,16 +9,16 @@ public class NumericFraction extends Fraction<Integer, Integer> {
         super(numerator, denumerator);
         setSummator((BiFunction<NumericFraction, NumericFraction, NumericFraction>) NumericFraction::sum);
         setAmplifier((BiFunction<NumericFraction, NumericFraction, NumericFraction>) NumericFraction::amplify);
-        setDevider((BiFunction<NumericFraction, NumericFraction, NumericFraction>) NumericFraction::devide);
+        setDevider((BiFunction<NumericFraction, NumericFraction, NumericFraction>) NumericFraction::devide_);
         setSubstractor((BiFunction<NumericFraction, NumericFraction, NumericFraction>) NumericFraction::substract);
     }
 
     private static NumericFraction substract(NumericFraction fraction1, NumericFraction fraction2) {
-        fraction2.setNumerator(fraction2.getNumerator() * (-1));
-        return sum(fraction1, fraction2);
+        NumericFraction f = new NumericFraction(fraction2.getNumerator() * (-1), fraction2.getDenumerator());
+        return sum(fraction1, f);
     }
 
-    private static NumericFraction devide(NumericFraction fraction1, NumericFraction fraction2) {
+    private static NumericFraction devide_(NumericFraction fraction1, NumericFraction fraction2) {
         return amplify(fraction2, fraction1);
     }
 
@@ -33,9 +33,12 @@ public class NumericFraction extends Fraction<Integer, Integer> {
 
         int d = ArithmeticUtils.lcm(fraction1.getDenumerator(), fraction2.getDenumerator());
 
-        return new NumericFraction(d / fraction1.getDenumerator() * fraction1.getNumerator(),
-                d / fraction2.getDenumerator() * fraction2.getNumerator());
+        return new NumericFraction(d / fraction1.getDenumerator() * fraction1.getNumerator() +
+                                   d / fraction2.getDenumerator() * fraction2.getNumerator(), d);
     }
 
-
+    @Override
+    public String toString() {
+        return "[" + getNumerator() + "/" + getDenumerator() + "]";
+    }
 }

@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,9 +8,49 @@ public class Lab3 {
 
     public static void main(String[] args) {
 
+        proccessFractions();
 
-//        int n = (int) (Math.random() * 5);
+        proccessStudents();
 
+    }
+
+    private static void proccessStudents() {
+
+
+        List<Student> list = StudentGenerator.generateStudents(10);
+
+        if (list == null) {
+            System.out.println("no students!:(");
+            return;
+        }
+
+
+        System.out.println("All students");
+
+        list.forEach(System.out::println);
+
+        System.out.println("In department 1");
+
+        list.stream().filter(student -> student.getDepartment().equals("1")).forEach(System.out::println);
+
+
+        int year = (int) (Math.random() * 10 + 1990);
+        System.out.println("After year " + year);
+
+
+        list.stream().filter(student -> {
+            try {
+                return student.getDate().after(new SimpleDateFormat("YYYY").parse("" + year));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }).forEach(System.out::println);
+
+
+    }
+
+    private static void proccessFractions() {
         int n = 3;
         System.out.println("Generating " + n + " fractions");
 
@@ -34,11 +76,7 @@ public class Lab3 {
             System.out.printf("%s * %s = %s\n", f1, f2, f1.multiply(f2));
             System.out.printf("%s / %s = %s\n\n", f1, f2, f1.devide(f2));
 
-
         }
-
-        fractions.forEach(fraction -> {
-        });
 
     }
 

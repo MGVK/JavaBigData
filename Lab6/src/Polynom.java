@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class Lab6 {
+public class Polynom {
 
     public static void main(String[] args) {
 
